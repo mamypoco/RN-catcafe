@@ -26,9 +26,8 @@ function ContactScreen() {
                   and we'll reply as soon as we can.
                </Text>
             </View>
-            <View>
-               <ContactForm />
-            </View>
+
+            <ContactForm />
          </View>
       </ScrollView>
    );
