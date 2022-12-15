@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import ContactForm from "../components/ContactForm";
+import ContactForm2 from "../components/ContactForm2";
 
 function ContactScreen() {
    return (
@@ -27,7 +27,7 @@ function ContactScreen() {
                </Text>
             </View>
 
-            <ContactForm />
+            <ContactForm2 />
          </View>
       </ScrollView>
    );
@@ -38,12 +38,11 @@ export default ContactScreen;
 const styles = StyleSheet.create({
    rootContainer: {
       margin: 10,
-      paddingHorizontal: 10,
+      paddingHorizontal: 18,
       justifyContent: "center",
       alignItems: "center",
    },
    container: {
-      margin: 8,
       justifyContent: "center",
       alignItems: "center",
    },

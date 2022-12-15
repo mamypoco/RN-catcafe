@@ -1,65 +1,65 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import Input from "./Input";
 
 function ContactForm() {
+   // const handleSubmit = (values) => {
+   //    console.log("form values:", values);
+   //    console.log("in JSON format:", JSON.stringify(values));
+   // };
    return (
       <View>
          <View>
-            <View>
+            <View style={styles.label}>
                <Text>Name:</Text>
             </View>
-            <View style={styles.input1}>
+            <View style={styles.inputName}>
                <Input
                   textInputConfig={{
-                     placeholder: "First name",
-                  }}
-               />
-            </View>
-            <View style={styles.input1}>
-               <Input
-                  textInputConfig={{
-                     placeholder: "Last name",
+                     placeholder: "e.g. John Doe",
                   }}
                />
             </View>
          </View>
-         <View>
+         <View style={styles.label}>
             <Text>Email:</Text>
          </View>
-         <View style={styles.input1}>
+         <View style={styles.input}>
             <Input
                textInputConfig={{
-                  placeholder: "Email",
+                  placeholder: "e.g. johnd@domain.com",
                }}
             />
          </View>
 
-         <View>
+         <View style={styles.label}>
             <Text>Phone:</Text>
          </View>
-         <View style={styles.input1}>
+         <View style={styles.input}>
             <Input
                textInputConfig={{
                   keyboardType: "decimal-pad",
-                  placeholder: "Enter 10 digits number",
+                  placeholder: "e.g. 1234567890",
                   maxLength: 12,
                }}
             />
          </View>
-         <View>
+         <View style={styles.label}>
             <Text>Newsletter?</Text>
          </View>
 
-         <View>
+         <View style={styles.label}>
             <Text>Your Feedback:</Text>
          </View>
          <View style={styles.feedback}>
             <Input
                textInputConfig={{
                   placeholder: "Enter Your Feedback here",
+                  multiline: true,
+                  numberOfLines: 3,
                }}
             />
          </View>
+         <Button onPress={handleSubmit} title="Submit" color="#796e3d" />
       </View>
    );
 }
@@ -73,29 +73,39 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
    },
    label: {
-      paddingHorizontal: 6,
+      // paddingHorizontal: 6,
       justifyContent: "center",
+      marginTop: 6,
+      marginBottom: 6,
    },
-   input1: {
+   inputName: {
       borderRadius: 6,
       paddingHorizontal: 6,
       justifyContent: "center",
       backgroundColor: "white",
       paddingBottom: 6,
-      marginBottom: 6,
+      marginBottom: 2,
+      height: 40,
+      width: 230,
+   },
+   input: {
+      borderRadius: 6,
+      paddingHorizontal: 6,
+      justifyContent: "center",
+      backgroundColor: "white",
+      paddingBottom: 6,
+      marginBottom: 8,
       height: 40,
       width: 230,
    },
    feedback: {
       borderRadius: 6,
       paddingHorizontal: 6,
-      justifyContent: "flex-start",
+      // justifyContent: "flex-start",
       backgroundColor: "white",
       paddingBottom: 6,
       marginBottom: 6,
       height: 120,
       width: 230,
-      multiline: true,
-      numberOfLines: 3,
    },
 });
