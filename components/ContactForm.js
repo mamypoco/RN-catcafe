@@ -8,8 +8,8 @@ function ContactForm() {
    const [isChecked, setChecked] = useState(false);
 
    const checkHandler = (values) => {
+      setChecked(!isChecked);
       console.log(JSON.stringify(values));
-      setChecked(values);
    };
 
    const handleSubmit = (values, { resetForm }) => {
@@ -63,6 +63,7 @@ function ContactForm() {
 
                <Checkbox
                   value={isChecked}
+                  checked={props.values.newsLetter}
                   onValueChange={checkHandler}
                   color={isChecked ? "black" : undefined}
                />
