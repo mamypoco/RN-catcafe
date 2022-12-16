@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import ContactForm2 from "../components/ContactForm2";
+import ContactForm from "../components/ContactForm";
 
 function ContactScreen() {
    return (
@@ -27,7 +27,7 @@ function ContactScreen() {
                </Text>
             </View>
 
-            <ContactForm2 />
+            <ContactForm />
          </View>
       </ScrollView>
    );

@@ -9,6 +9,7 @@ function CafemenuScreen() {
       ["Espresso", "3.50", "4.00"],
       ["Latte or Cappuccino", "3.50", "4.75"],
       ["Cafe Moca", "3.50", "4.75"],
+      ["Hot Cocoa", "2.00", "2.75"],
       ["Herbal Tea", "1.50", "2.50"],
       ["Smoothies\n(Strawberry, Blueberry, Mango, Taro)", "4.25", "5.75"],
       ["Chocolate Milk", "1.49"],
