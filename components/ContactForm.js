@@ -5,13 +5,6 @@ import Checkbox from "expo-checkbox";
 // import { CheckBox } from "react-native-elements";
 
 function ContactForm() {
-   const [isChecked, setChecked] = useState(false);
-
-   const checkHandler = (values) => {
-      setChecked(!isChecked);
-      console.log(JSON.stringify(values));
-   };
-
    const handleSubmit = (values, { resetForm }) => {
       console.log("JSON format:", JSON.stringify(values));
       resetForm();
@@ -23,7 +16,7 @@ function ContactForm() {
             name: "",
             email: "",
             phone: "",
-            newsLetter: isChecked,
+            newsLetter: false,
             feedback: "",
          }}
          onSubmit={handleSubmit}
@@ -62,10 +55,11 @@ function ContactForm() {
                <Text style={styles.label}>Sign-up Newsletter?</Text>
 
                <Checkbox
-                  value={isChecked}
-                  checked={props.values.newsLetter}
-                  onValueChange={checkHandler}
-                  color={isChecked ? "black" : undefined}
+                  value={props.values.newsLetter}
+                  onValueChange={(newValue) =>
+                     props.setFieldValue("newsLetter", newValue)
+                  }
+                  color={props.values.newsLetter ? "black" : undefined}
                />
 
                {/* //react-native-elements */}
