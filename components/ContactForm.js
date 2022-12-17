@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Formik } from "formik";
 import { Button, TextInput, View, StyleSheet, Text } from "react-native";
 import Checkbox from "expo-checkbox";
@@ -21,15 +20,15 @@ function ContactForm() {
          }}
          onSubmit={handleSubmit}
       >
-         {(props) => (
+         {({ handleChange, handleSubmit, values, setFieldValue }) => (
             <View>
                <Text style={styles.label}>Name:</Text>
 
                <TextInput
                   style={styles.input}
                   placeholder="e.g. John Doe"
-                  onChangeText={props.handleChange("name")}
-                  value={props.values.name}
+                  onChangeText={handleChange("name")}
+                  value={values.name}
                />
 
                <Text style={styles.label}>Email:</Text>
@@ -37,8 +36,8 @@ function ContactForm() {
                <TextInput
                   style={styles.input}
                   placeholder="e.g. johnd@domain.com"
-                  onChangeText={props.handleChange("email")}
-                  value={props.values.email}
+                  onChangeText={handleChange("email")}
+                  value={values.email}
                />
 
                <Text style={styles.label}>Phone:</Text>
@@ -47,19 +46,19 @@ function ContactForm() {
                   style={styles.input}
                   keyboardType="decimal-pad"
                   placeholder="e.g. 1234567890"
-                  onChangeText={props.handleChange("phone")}
+                  onChangeText={handleChange("phone")}
                   maxLength={12}
-                  value={props.values.phone}
+                  value={values.phone}
                />
 
                <Text style={styles.label}>Sign-up Newsletter?</Text>
 
                <Checkbox
-                  value={props.values.newsLetter}
+                  value={values.newsLetter}
                   onValueChange={(newValue) =>
-                     props.setFieldValue("newsLetter", newValue)
+                     setFieldValue("newsLetter", newValue)
                   }
-                  color={props.values.newsLetter ? "black" : undefined}
+                  color={values.newsLetter ? "black" : undefined}
                />
 
                {/* //react-native-elements */}
@@ -80,17 +79,13 @@ function ContactForm() {
                <TextInput
                   style={styles.feedback}
                   placeholder="Enter Your Feedback here"
-                  onChangeText={props.handleChange("feedback")}
+                  onChangeText={handleChange("feedback")}
                   multiline
                   numberOfLines={5}
-                  value={props.values.feedback}
+                  value={values.feedback}
                />
 
-               <Button
-                  onPress={props.handleSubmit}
-                  title="Submit"
-                  color="black"
-               />
+               <Button onPress={handleSubmit} title="Submit" color="black" />
             </View>
          )}
       </Formik>
