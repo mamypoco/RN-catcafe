@@ -1,7 +1,8 @@
 import { Formik } from "formik";
 import { Button, TextInput, View, StyleSheet, Text } from "react-native";
 import Checkbox from "expo-checkbox";
-// import { CheckBox } from "react-native-elements";
+import * as yup from "yup";
+// import validateContactForm from "../utils/validateContactForm";
 
 function ContactForm() {
    const handleSubmit = (values, { resetForm }) => {
@@ -9,8 +10,26 @@ function ContactForm() {
       resetForm();
    };
 
+   const formValidate = yup.object().shape({
+      name: yup
+         .string()
+         .required("Full name is required")
+         .min(
+            5,
+            ({ min }) =>
+               `At least ${min} characters with space between first and last name`
+         ),
+      email: yup
+         .string()
+         .email("Please enter valid email")
+         .required("Email is required"),
+
+      feedback: yup.string().required("Feedback is required"),
+   });
+
    return (
       <Formik
+         validationSchema={formValidate}
          initialValues={{
             name: "",
             email: "",
@@ -19,30 +38,44 @@ function ContactForm() {
             feedback: "",
          }}
          onSubmit={handleSubmit}
+         // validate={validateContactForm}
       >
-         {({ handleChange, handleSubmit, values, setFieldValue }) => (
+         {({ handleChange, handleSubmit, values, setFieldValue, errors }) => (
             <View>
                <Text style={styles.label}>Name:</Text>
 
                <TextInput
+                  name="name"
                   style={styles.input}
                   placeholder="e.g. John Doe"
                   onChangeText={handleChange("name")}
                   value={values.name}
                />
+               {errors.name && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                     {errors.name}
+                  </Text>
+               )}
 
                <Text style={styles.label}>Email:</Text>
 
                <TextInput
+                  name="email"
                   style={styles.input}
                   placeholder="e.g. johnd@domain.com"
                   onChangeText={handleChange("email")}
                   value={values.email}
                />
+               {errors.email && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                     {errors.email}
+                  </Text>
+               )}
 
                <Text style={styles.label}>Phone:</Text>
 
                <TextInput
+                  name="phone"
                   style={styles.input}
                   keyboardType="decimal-pad"
                   placeholder="e.g. 1234567890"
@@ -61,22 +94,10 @@ function ContactForm() {
                   color={values.newsLetter ? "black" : undefined}
                />
 
-               {/* //react-native-elements */}
-               {/* <CheckBox
-                  checkedIcon="check-box"
-                  iconType="material"
-                  uncheckedIcon="check-box-outline-blank"
-                  title="I want to sign-up NewsLetter"
-                  checkedTitle="I want to sign-up NewsLetter"
-                  checked={props.values.newsLetter}
-                  onPress={() =>
-                     props.setFieldValue("newsLetter", !props.values.newsLetter)
-                  }
-               /> */}
-
                <Text style={styles.label}>Your Feedback:</Text>
 
                <TextInput
+                  feedback="feedback"
                   style={styles.feedback}
                   placeholder="Enter Your Feedback here"
                   onChangeText={handleChange("feedback")}
@@ -84,8 +105,14 @@ function ContactForm() {
                   numberOfLines={5}
                   value={values.feedback}
                />
-
-               <Button onPress={handleSubmit} title="Submit" color="black" />
+               {errors.email && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                     {errors.feedback}
+                  </Text>
+               )}
+               <View style={styles.buttonView}>
+                  <Button onPress={handleSubmit} title="Submit" color="black" />
+               </View>
             </View>
          )}
       </Formik>
@@ -130,5 +157,8 @@ const styles = StyleSheet.create({
       height: 120,
       width: 280,
       fontSize: 16,
+   },
+   buttonView: {
+      width: 150,
    },
 });
