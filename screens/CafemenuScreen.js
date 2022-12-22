@@ -21,7 +21,6 @@ function CafemenuScreen() {
       ["Sandwich", "6.25"],
       ["Waffles (2 per order)", "4.25"],
       ["Green onion pancake", "4.75"],
-
       ["Popcorn chicken", "4.25"],
    ]);
 

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Image } from "react-native";
 import ContactForm from "../components/ContactForm";
 
 function ContactScreen() {
@@ -8,6 +8,10 @@ function ContactScreen() {
             <View style={styles.container}>
                <Text style={styles.header}>Contact us</Text>
             </View>
+            <Image
+               style={styles.image}
+               source={require("../data/images/cat_in_cocoa.jpg")}
+            />
             <View style={styles.container}>
                <Text style={styles.paragraph}>
                   12345 NE 123rd St, {"\n"}
@@ -57,18 +61,18 @@ const styles = StyleSheet.create({
       textAlign: "center",
       margin: 6,
    },
-
    paragraph: {
       fontSize: 16,
       margin: 8,
    },
-   image: {
-      height: 200,
-      width: 300,
-   },
+
    hours: {
       textAlign: "center",
       fontSize: 16,
       margin: 8,
+   },
+   image: {
+      height: 150,
+      width: 180,
    },
 });

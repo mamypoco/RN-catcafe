@@ -1,6 +1,15 @@
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import {
+   Text,
+   View,
+   StyleSheet,
+   Image,
+   ScrollView,
+   Button,
+} from "react-native";
+import ReservationScreen from "./ReservationScreen";
+import { navigation } from "@react-navigation/native";
 
-function Home() {
+function Home({ navigation }) {
    return (
       <ScrollView contentContainerStyle={styles.wrapper}>
          <View style={styles.rootContainer}>
@@ -13,7 +22,14 @@ function Home() {
                <Image
                   style={styles.image}
                   source={require("../data/images/calico_latte.jpg")}
-               ></Image>
+               />
+               <View style={styles.bookContainer}>
+                  <Button
+                     onPress={() => navigation.navigate("Book Your Visit")}
+                     title="Book Your Visit"
+                     color="black"
+                  />
+               </View>
             </View>
             <View style={styles.container}>
                <Text style={styles.subHeader}>
@@ -60,6 +76,11 @@ const styles = StyleSheet.create({
    },
    container: {
       margin: 8,
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   bookContainer: {
+      marginTop: 12,
       justifyContent: "center",
       alignItems: "center",
    },

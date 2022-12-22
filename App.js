@@ -10,6 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import LinearGradient from "react-native-linear-gradient";
 import HomeScreen from "./screens/HomeScreen";
+import ReservationScreen from "./screens/ReservationScreen";
 import AboutusScreen from "./screens/AboutusScreen";
 import CafemenuScreen from "./screens/CafemenuScreen";
 import AdoptcatScreen from "./screens/AdoptcatScreen";
@@ -53,6 +54,15 @@ function DrawerNavigator() {
             options={{
                drawerIcon: ({ color, size }) => (
                   <Ionicons name="home" color={color} size={size} />
+               ),
+            }}
+         />
+         <Drawer.Screen
+            name="Book Your Visit"
+            component={ReservationScreen}
+            options={{
+               drawerIcon: ({ color, size }) => (
+                  <Ionicons name="chatbubbles" color={color} size={size} />
                ),
             }}
          />
