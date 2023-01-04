@@ -6,8 +6,7 @@ import {
    ScrollView,
    Button,
 } from "react-native";
-import ReservationScreen from "./ReservationScreen";
-import { navigation } from "@react-navigation/native";
+
 
 function Home({ navigation }) {
    return (

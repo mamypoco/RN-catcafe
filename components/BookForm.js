@@ -7,42 +7,61 @@ import {
    Button,
    TextInput,
    Platform,
+   Modal,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 function BookForm() {
-   // const [state, setState] = useState({
-   //    name: "",
-   //    email: "",
-   //    numPeople: 1,
-   //    date: new Date(),
-   //    showCalendar: false,
-   //    fromTime: "",
-   //    toTime: "",
-   // });
    const [name, setName] = useState();
    const [email, setEmail] = useState();
    const [numPeople, setNumPeople] = useState(1);
-   const [date, setDate] = useState(new Date());
+   const [dateOfVisit, setdateOfVisit] = useState(new Date());
    const [showCalendar, setShowCalendar] = useState(false);
-   const [fromTime, setFromTime] = useState();
-   const [toTime, setToTime] = useState();
+   const [timeOfVisit, setTimeOfVisit] = useState(new Date());
+   const [showTime, setShowTime] = useState(false);
+   const [showModal, setShowModal] = useState(false);
 
-   const bookHandler = () => {
+   const dateOfVisitFormatted = dateOfVisit.toLocaleDateString("en-US");
+   const timeOfVisitFormatted = timeOfVisit
+      .toLocaleTimeString("en-US")
+      .slice(0, -3);
+
+   // ([], {
+   //    hour: "2-digit",
+   //    minute: "2-digit",
+   //    // timeStyle: "short",
+   // });
+
+   const handleReservation = () => {
       console.log("name:", name);
       console.log("email:", email);
       console.log("Number of people:", numPeople);
-      console.log("date:", date);
-      console.log("showCalendar:", showCalendar);
-      console.log("fromTime:", fromTime);
-      console.log("toTime:", toTime);
+      console.log("date:", dateOfVisitFormatted);
+      console.log("time:", timeOfVisitFormatted);
+      setShowModal(!showModal);
    };
 
    const onDateChange = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
+      const currentDate = selectedDate || dateOfVisit;
       setShowCalendar(Platform.OS === "ios");
-      setDate(currentDate);
+      setdateOfVisit(currentDate);
+   };
+
+   const onTimeChange = (event, selectedTime) => {
+      const currentTime = selectedTime || timeOfVisit;
+      setShowTime(Platform.OS === "ios");
+      setTimeOfVisit(currentTime);
+   };
+
+   const resetForm = () => {
+      setName();
+      setEmail();
+      setNumPeople(1);
+      setdateOfVisit(new Date());
+      setTimeOfVisit(new Date());
+      setShowCalendar(false);
+      setShowTime(false);
    };
 
    return (
@@ -81,38 +100,84 @@ function BookForm() {
          </View>
          <View>
             <Text style={styles.label}>Date:</Text>
-            <Button
-               onPress={() => setShowCalendar(!showCalendar)}
-               title={date.toLocaleDateString("en-US")}
-               color="#726e6e"
-               accessibilityLabel="Tap me to select a reservataion date"
-            />
+            <View style={styles.picker}>
+               <Button
+                  onPress={() => setShowCalendar(!showCalendar)}
+                  title={dateOfVisitFormatted}
+                  color="#AA8B56"
+                  accessibilityLabel="Tap me to select a reservataion date"
+               />
+            </View>
          </View>
          {showCalendar && (
             <DateTimePicker
-               value={date}
+               value={dateOfVisit}
                mode="date"
                display="default"
                onChange={onDateChange}
             />
          )}
          <View>
-            <Text style={styles.label}>Time:</Text>
-            <Button
-               onPress={() => bookHandler()}
-               title="Pick your time"
-               color="#726e6e"
-               accessibilityLabel="Tap me to search for available campsites to reserve"
-            />
+            <Text style={styles.label}>
+               Start Time: {timeOfVisitFormatted} {"\n"}
+               (Note: 15 mins interval and 30 mins long)
+            </Text>
+
+            <View style={styles.picker}>
+               <Button
+                  onPress={() => setShowTime(!showTime)}
+                  title={timeOfVisitFormatted}
+                  color="#AA8B56"
+                  accessibilityLabel="Tap me to select 30 mins reservataion time"
+               />
+            </View>
+            {showTime && (
+               <DateTimePicker
+                  value={timeOfVisit}
+                  mode="time"
+                  display="default"
+                  minuteInterval={15}
+                  onChange={onTimeChange}
+               />
+            )}
          </View>
 
          <View style={styles.buttonView}>
             <Button
-               onPress={() => bookHandler()}
+               onPress={() => handleReservation()}
                title="Search Availability"
-               accessibilityLabel="Tap me to search for available campsites to reserve"
+               color="black"
+               accessibilityLabel="Tap me to search for available slot"
             />
          </View>
+
+         <Modal
+            animationType="slide"
+            transparent={false}
+            visible={showModal}
+            onRequesetClose={() => setShowModal(!showModal)}
+         >
+            <View style={styles.modal}>
+               <Text style={styles.modalTitle}>Search reservations</Text>
+               <Text style={styles.modalText}>
+                  Number of people: {numPeople}
+               </Text>
+               <Text style={styles.modalText}>
+                  Date of visit: {dateOfVisitFormatted}
+               </Text>
+               <Text style={styles.modalText}>
+                  Time of visit: {timeOfVisitFormatted}
+               </Text>
+               <Button
+                  onPress={() => {
+                     setShowModal(!showModal);
+                     resetForm();
+                  }}
+                  color="black"
+                  title="Close"
+               />
+            </View>
+         </Modal>
       </ScrollView>
    );
 }
@@ -146,5 +211,27 @@ const styles = StyleSheet.create({
    buttonView: {
       marginTop: 12,
       width: 200,
+      borderRadius: 6,
+      backgroundColor: "white",
+   },
+   modalBack: {
+      backgroundColor: "#e6ddc4",
+   },
+   modal: {
+      justifyContent: "center",
+      margin: 20,
+      backgroundColor: "#e6ddc4",
+   },
+   modalTitle: {
+      fontSize: 24,
+      fontWeight: "bold",
+      backgroundColor: "black",
+      textAlign: "center",
+      color: "#fff",
+      marginBottom: 20,
+   },
+   modalText: {
+      fontSize: 18,
+      margin: 10,
    },
 });
